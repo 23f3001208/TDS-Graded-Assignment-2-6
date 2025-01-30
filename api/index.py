@@ -1,5 +1,5 @@
 import json
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler
 import os
 
 class handler(BaseHTTPRequestHandler):
@@ -8,6 +8,8 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')  # Allow all methods
+        self.send_header('Access-Control-Allow-Headers', '*')  # Allow all headers
         self.end_headers()
         
         # Parse query parameters
