@@ -1,5 +1,5 @@
 import json
-from http.server import BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler, HTTPServer
 import os
 
 class handler(BaseHTTPRequestHandler):
@@ -23,7 +23,15 @@ class handler(BaseHTTPRequestHandler):
             return
         
         # Get marks for provided names
-        marks = [data.get(name, 0) for name in names]
+        marks = []
+        for name in names:
+            # Assuming each item in data is a dictionary with a 'name' key
+            mark = 0
+            for entry in data:
+                if entry.get('name') == name:
+                    mark = entry.get('marks', 0)  # Assuming 'marks' key exists in each dictionary
+                    break
+            marks.append(mark)
         response = {"marks": marks}
         
         # Respond with JSON
