@@ -15,7 +15,8 @@ class handler(BaseHTTPRequestHandler):
         names = [param.split('=')[-1] for param in query.split('&') if 'name=' in param]
         
         try:
-            with open('q-vercel-python.json', 'r') as file:
+            file_path = os.path.join(os.path.dirname(__file__), 'data.json')
+            with open(file_path, 'r') as file:
                 data = json.load(file)
         except Exception as e:
             self.wfile.write(json.dumps({"error": "Failed to load data", "details": str(e)}).encode('utf-8'))
